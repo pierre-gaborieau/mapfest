@@ -3,6 +3,7 @@ import 'package:flutter_login/flutter_login.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mapfest/constant.dart';
 import 'constant.dart';
+import 'data.dart';
 import 'screens/home/home_page.dart';
 
 const users = const {
@@ -13,18 +14,33 @@ const users = const {
 class LoginScreen extends StatelessWidget {
   Duration get loginTime => Duration(milliseconds: 2250);
 
-  Future<String> _authUser(LoginData data) {
+  Future<String> _authUser(LoginData data) async {
     print('Name: ${data.name}, Password: ${data.password}');
-    return Future.delayed(loginTime).then((_) {
-      if (!users.containsKey(data.name)) {
-        return 'L\'utilisateur n\'existe pas';
-      }
-      if (users[data.name] != data.password) {
-        return 'Le mot de passe est incorrect';
-      }
+    int result = await Data.Login(data.name, data.password);
+    print(result);
+    if (result == 0) {
       return null;
-    });
+    }
+    if (result == 1) {
+      return 'L\'utilisateur n\'existe pas';
+    }
+    if (result == 2) {
+      return 'Le mot de passe est incorrect';
+    }
   }
+
+  // Future<String> _authUser(LoginData data) {
+  //   print('Name: ${data.name}, Password: ${data.password}');
+  //   return Future.delayed(loginTime).then((_) {
+  //     if (!users.containsKey(data.name)) {
+  //       return 'L\'utilisateur n\'existe pas';
+  //     }
+  //     if (users[data.name] != data.password) {
+  //       return 'Le mot de passe est incorrect';
+  //     }
+  //     return null;
+  //   });
+  // }
 
   Future<String> _recoverPassword(String name) {
     print('Name: $name');

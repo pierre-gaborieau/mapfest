@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../../constant.dart';
-
 // ignore: camel_case_types
 class title extends StatelessWidget {
   final String text;
