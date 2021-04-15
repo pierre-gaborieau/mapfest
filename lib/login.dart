@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter_login/flutter_login.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mapfest/constant.dart';
-import 'constant.dart';
 import 'constant.dart';
 import 'screens/home/home_page.dart';
 
@@ -37,8 +35,6 @@ class LoginScreen extends StatelessWidget {
       return null;
     });
   }
-
-  FormFieldValidator a(String email) {}
 
   @override
   Widget build(BuildContext context) {

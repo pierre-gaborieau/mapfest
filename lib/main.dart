@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mapfest/constant.dart';
-import 'package:mapfest/login.dart';
+import 'constant.dart';
+import 'screens/home/home_page.dart';
 
 void main() {
   runApp(MyApp());
@@ -14,7 +15,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: vAppName,
       theme: ThemeData(backgroundColor: vBackgroundColor),
-      home: LoginScreen(),
+      home: HomePage(),
     );
   }
 }
