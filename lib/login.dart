@@ -15,32 +15,29 @@ class LoginScreen extends StatelessWidget {
   Duration get loginTime => Duration(milliseconds: 2250);
 
   Future<String> _authUser(LoginData data) async {
-    print('Name: ${data.name}, Password: ${data.password}');
     int result = await Data.Login(data.name, data.password);
-    print(result);
     if (result == 0) {
       return null;
-    }
-    if (result == 1) {
+    } else if (result == 1) {
       return 'L\'utilisateur n\'existe pas';
-    }
-    if (result == 2) {
+    } else if (result == 2) {
       return 'Le mot de passe est incorrect';
+    } else {
+      return 'Erreur inconnue';
     }
   }
 
-  // Future<String> _authUser(LoginData data) {
-  //   print('Name: ${data.name}, Password: ${data.password}');
-  //   return Future.delayed(loginTime).then((_) {
-  //     if (!users.containsKey(data.name)) {
-  //       return 'L\'utilisateur n\'existe pas';
-  //     }
-  //     if (users[data.name] != data.password) {
-  //       return 'Le mot de passe est incorrect';
-  //     }
-  //     return null;
-  //   });
-  // }
+  Future<String> _signUp(LoginData data) async {
+    print('Name: ${data.name}, Password: ${data.password}');
+    int result = await Data.SignUp(data.name, data.password);
+    if (result == 0) {
+      return null;
+    } else if (result == 1) {
+      return 'L\'utilisateur existe déjà';
+    } else {
+      return 'Erreur Inconnue';
+    }
+  }
 
   Future<String> _recoverPassword(String name) {
     print('Name: $name');
@@ -74,7 +71,7 @@ class LoginScreen extends StatelessWidget {
           accentColor: vPrimaryColor),
       title: vAppName,
       onLogin: _authUser,
-      onSignup: _authUser,
+      onSignup: _signUp,
       loginProviders: <LoginProvider>[
         LoginProvider(
           icon: FontAwesomeIcons.google,

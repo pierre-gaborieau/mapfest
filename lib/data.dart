@@ -12,8 +12,7 @@ class Data {
     var response = await http.get(uri);
     var lista = convert.jsonDecode(response.body);
     lista = lista['data'];
-    print((lista['2'] as Map<dynamic, dynamic>).length);
-    if ((lista['2'] as Map<dynamic, dynamic>).length > 0) {
+    if ((lista as Map<dynamic, dynamic>).isNotEmpty) {
       var bytes1 = utf8.encode(password); // data being hashed
       var digest1 = sha256.convert(bytes1);
 
@@ -22,6 +21,31 @@ class Data {
       } else {
         return 2;
       }
+    } else {
+      return 1;
+    }
+  }
+
+  static Future<int> SignUp(String name, String password) async {
+    var uri = Uri.https('api-mapfest.herokuapp.com', 'user',
+        {'token': '27b6f7a4-5a65-4f6a-af76-79d8fb01edd7', 'email': name});
+    var response = await http.get(uri);
+    var lista = convert.jsonDecode(response.body);
+    lista = lista['data'];
+    if ((lista as Map<dynamic, dynamic>).isEmpty) {
+      var bytes1 = utf8.encode(password); // data being hashed
+      var digest1 = sha256.convert(bytes1);
+      http.post(
+          Uri.https('api-mapfest.herokuapp.com', 'user', {
+            'token': '27b6f7a4-5a65-4f6a-af76-79d8fb01edd7',
+            'email': name,
+            'password': digest1.toString()
+          }),
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+          },
+          body: jsonEncode(<String, String>{}));
+      return 0;
     } else {
       return 1;
     }

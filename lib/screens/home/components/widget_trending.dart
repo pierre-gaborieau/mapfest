@@ -63,8 +63,12 @@ class widget_trending extends StatelessWidget {
                             TextSpan(
                                 text: festName + " \n",
                                 style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 20)),
-                            TextSpan(text: festCity + " (" + festCountry + ")")
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 20,
+                                    color: Colors.black)),
+                            TextSpan(
+                                text: festCity + " (" + festCountry + ")",
+                                style: TextStyle(color: Colors.black))
                           ]))
                         ],
                       ),
